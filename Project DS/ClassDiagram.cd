@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LinkedQueue&lt;T&gt;" Collapsed="true">
+    <Position X="14.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAACAAAAAAAAAEAAAEAAAAAAAAAAAEQAAAQAA=</HashCode>
+      <FileName>LinkedQueue.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QueueADT&lt;ItemType&gt;">
+    <Position X="14.5" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAEAAAAAAAAAAAAEAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>QueueADT.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mission&lt;T&gt;">
+    <Position X="6.5" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAMgEAAAABABAQAAAAAQAAIAAAgCAAAAABAAAgA=</HashCode>
+      <FileName>Mission.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="event">
+    <Position X="8.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAgAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>event.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Rover&lt;T&gt;">
+    <Position X="11" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ABAAAAAgAAAAAQAAAAAAABAAAAEAARgCAAAAAAAAAAA=</HashCode>
+      <FileName>Rover.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cancellation" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Cancellation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Promotion" Collapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <InheritanceLine Type="event">
+      <InheritanceModifierLabel ManuallyPlaced="true">
+        <Position X="0.141" Y="0.05" />
+      </InheritanceModifierLabel>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Promotion.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Formulation" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Formulation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="station">
+    <Position X="8.75" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ABAQgABAAAgYAAQAAAAABACAAAAAAABAAAACAAAAAAg=</HashCode>
+      <FileName>station.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
