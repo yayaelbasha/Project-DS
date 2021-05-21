@@ -76,6 +76,12 @@
     <ClInclude Include="Promotion.h">
       <Filter>events</Filter>
     </ClInclude>
+    <ClInclude Include="PriQueueADT.h">
+      <Filter>DS</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedPriQueue.h">
+      <Filter>DS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

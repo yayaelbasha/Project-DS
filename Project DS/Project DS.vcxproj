@@ -153,9 +153,11 @@
     <ClInclude Include="Cancellation.h" />
     <ClInclude Include="event.h" />
     <ClInclude Include="Formulation.h" />
+    <ClInclude Include="LinkedPriQueue.h" />
     <ClInclude Include="LinkedQueue.h" />
     <ClInclude Include="Mission.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="PriQueueADT.h" />
     <ClInclude Include="Promotion.h" />
     <ClInclude Include="QueueADT.h" />
     <ClInclude Include="Rover.h" />
