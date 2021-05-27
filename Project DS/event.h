@@ -9,6 +9,7 @@ protected:
 	station* pStation;	
 
 public:
+	event();
 	event(station* pStation) {
 		this->pStation = pStation; 
 	}

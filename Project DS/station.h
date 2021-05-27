@@ -5,6 +5,8 @@
 #include "Mission.h"
 #include "Rover.h"
 #include "event.h"
+#include "UI.h"
+#include "Formulation.h"
 
 #include <fstream>
 
@@ -13,11 +15,9 @@ class station
 {
 private:
 	LinkedQueue<Mission<int>> WaitMissionsP;
-	LinkedQueue<Mission<int>> WaitMissionsM;
 	LinkedQueue<Mission<int>> WaitMissionsE;
 
 	LinkedQueue<Mission<int>> InExMissionsE;
-	LinkedQueue<Mission<int>> InExMissionsM;
 	LinkedQueue<Mission<int>> InExMissionsP;
 
 	LinkedQueue<Mission<int>> AvailRov;
@@ -26,13 +26,13 @@ private:
 	LinkedQueue<Mission<int>> CompletedMissions;
 
 	LinkedQueue<Mission<int>> InExRovE;
-	LinkedQueue<Mission<int>> InExRovM;
 	LinkedQueue<Mission<int>> InExRovP;
 
-public:
-	station() {
+	UIclass UI;
 
-	}
+public:
+	station();
+
 	void read() {
 
 		int MOU, EME, POL;
@@ -46,12 +46,26 @@ public:
 		ofstream outputFile;
 		outputFile.open("z.txt");
 		outputFile << 12 << " " << 13 << " " << 14 << " ";
-
 	}
 	
 	void excute() {
-		read();
-		write();
+		int numRovP;
+		int numRovE;
+
+		int speedRovP;
+		int speedRovE;
+
+		int numCheckup;
+
+		int checkupDurP;
+		int checkupDurE;
+
+		int AutoP;
+		int eventsNum;
+		LinkedQueue<Formulation*> Events;
+
+		UI.InputFile(numRovP,numRovE, speedRovP, speedRovE, numCheckup, checkupDurP, checkupDurE, AutoP, eventsNum,Events);
+
 	}
 };
 

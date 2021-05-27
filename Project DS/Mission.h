@@ -39,6 +39,5 @@ public:
 	void setTargetLoc(T TargetLoc) { this->TargetLoc = TargetLoc; }
 	void setduration(T duration) { this->duration = duration; }
 	void getSign(int Sign) { this->Sign = Sign; }
-
 };
 

@@ -1,12 +1,15 @@
 #ifndef C_UI
 #define C_UI
 
+#include "Formulation.h"
+#include "LinkedQueue.h"
 
-template <typename T>
+
+// template <typename T>
 class UIclass
 {
 public:
-	int numRovP;
+	/*int numRovP;
 	int numRovE;
 
 	int speedRovP;
@@ -18,23 +21,20 @@ public:
 	int checkupDurE;
 
 	int AutoP;
-	int eventsNum;
+	int eventsNum;*/
 
-	int eventsMisType[eventsNum];
-	int eventsED[eventsNum];
-	int eventsID[eventsNum];
-	int eventsTLOC[eventsNum];
-	int eventsMDUR[eventsNum];
-	int eventsSIG[eventsNum];
+	/*int * eventsMisType = new int [eventsNum];
+	int * eventsED = new int [eventsNum];
+	int * eventsID = new int [eventsNum];
+	int * eventsTLOC = new int [eventsNum];
+	int * eventsMDUR = new int [eventsNum];
+	int * eventsSIG = new int [eventsNum];*/
 
 
 public:
 	UIclass();
 	
-	void read(T& Element);
-	void print(T Element);
-
-	void InputFile();
+	void InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRovE, int& numCheckup, int& checkupDurP, int& checkupDurE, int& AutoP, int& eventsNum, LinkedQueue<Formulation*>& Events);
 	void OutputFile();
 };
 

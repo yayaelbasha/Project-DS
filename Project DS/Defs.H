@@ -3,7 +3,6 @@
 
 enum TYPE
 {
-	Mountainous,
 	Polar,
 	Emergency
 };
