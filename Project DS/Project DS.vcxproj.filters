@@ -44,6 +44,9 @@
     <ClCompile Include="Promotion.cpp">
       <Filter>events</Filter>
     </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mission.h">
@@ -81,6 +84,9 @@
     </ClInclude>
     <ClInclude Include="LinkedPriQueue.h">
       <Filter>DS</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

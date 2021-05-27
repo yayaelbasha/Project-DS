@@ -148,6 +148,7 @@
     <ClCompile Include="Promotion.cpp" />
     <ClCompile Include="Rover.cpp" />
     <ClCompile Include="station.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cancellation.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="QueueADT.h" />
     <ClInclude Include="Rover.h" />
     <ClInclude Include="station.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
