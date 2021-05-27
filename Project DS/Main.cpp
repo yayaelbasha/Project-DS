@@ -1,7 +1,8 @@
 #include <iostream>
+#include "station.h"
 using namespace std;
 
-#include "station.h"
+
 
 int main(){
 

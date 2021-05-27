@@ -1,5 +1,4 @@
-#ifndef STATION_H
-#define STATION_H
+#pragma once
 
 #include "LinkedQueue.h"
 #include "Mission.h"
@@ -31,7 +30,7 @@ private:
 	UIclass UI;
 
 public:
-	station();
+	station() {};
 
 	void read() {
 
@@ -69,4 +68,4 @@ public:
 	}
 };
 
-#endif
+

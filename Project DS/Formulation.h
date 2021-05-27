@@ -1,10 +1,8 @@
-#ifndef Formulation_H
-#define Formulation_H
-
+#pragma once
 #include "event.h"
 #include "Defs.H"
 
-class Formulation : public event {
+class Formulation {
 
 private:
 	TYPE missionType;
@@ -25,10 +23,9 @@ public:
 	void setSIG(int SIG);
 
 
-	virtual void Execute();
+	void Execute();
 	
 	~Formulation();
 
 };
 
-#endif

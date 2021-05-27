@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 
-//#include "Formulation.h"
+#include "Formulation.h"
 #include "LinkedQueue.h"
 
 using namespace std;
@@ -21,6 +21,8 @@ using namespace std;
 //}
 //
 //template < typename T>
+
+UIclass::UIclass() {}
 
 void UIclass::InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRovE, int& numCheckup, int& checkupDurP, int& checkupDurE, int& AutoP, int& eventsNum, LinkedQueue<Formulation*>& Events)
 {
