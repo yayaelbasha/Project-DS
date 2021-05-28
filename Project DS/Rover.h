@@ -9,7 +9,8 @@ class Mission;
 class Rover
 {
 private:
-	int Id;
+	static int NewId;
+	const int Id;
 	TYPE Rovertype;
 	int checkDur;
 	int speed;
@@ -34,7 +35,6 @@ public:
 	void setcheckDur(int checkDur);
 	void setspeed(int speed);
 	void SetMission(Mission* missionAssign);
-	void setId(int Id);
 };
 
 #endif

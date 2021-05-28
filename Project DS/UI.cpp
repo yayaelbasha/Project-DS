@@ -1,5 +1,5 @@
 #include "UI.h"
-
+#include<windows.h>
 #include <iostream>
 #include <fstream>
 
@@ -30,16 +30,17 @@ int UIclass::start() {
 	cout << "Please, select the Program mode (Enter the number of mode) : ";
 
 	int mode;
-
 	cin >> mode;
+
 	cout << endl;
 
-	switch (mode){
+	/*switch (mode){
 	case 1: 
 		cout << "Interactive Mode" << endl; 
 		break;
 	case 2: 
-		cout << "Step-By-Step Mode" << endl; 
+		cout << "Step-By-Step Mode" << endl;
+		Sleep(10);
 		break;
 	case 3: 
 		cout << "Silent Mode" << endl; 
@@ -48,7 +49,7 @@ int UIclass::start() {
 		break;
 	default: 
 		break;
-	}
+	}*/
 
 	return mode;
 }
@@ -140,7 +141,6 @@ void OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPriQueue<Mi
 	Mission* M;
 	Rover* R;
 
-
 	cout << "Current Day:" << Day << endl;
 	
 	int sizeWaitE = WaitMissionsE.size();
@@ -184,32 +184,34 @@ void OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPriQueue<Mi
 	cout << InExSize <<"In-Execution Missions/Rovers: ";
 
 	cout << "[";
-	for (int i = 0; i < sizeWaitE; i++)
+	for (int i = 0; i < InExSize; i++)
 	{
-		WaitMissionsE.dequeue(M);
-		if (i > 0 && i == sizeWaitE)
-		{
-			cout << ", ";
-		}
+		InExMissions.dequeue(M);
 		if (M->getType() == Emergency)
 		{
+			if (i > 0 && i == InExSize)
+			{
+				cout << ", ";
+			}
 			cout << M->getID() << "/" << M->getRover()->getId();
+		}
+		else
+		{
+			InExMissions.enqueueAsc(M,M->getCD());
 		}
 	}
 	cout << "] ";
 
 	cout << "{";
-	for (int i = 0; i < sizeWaitP; i++)
+	int i = 0;
+	while (InExMissions.dequeue(M))
 	{
-		WaitMissionsP.dequeue(M);
-		if (i > 0 && i == sizeWaitP)
+		if (i > 0)
 		{
 			cout << ", ";
 		}
-		if (M->getType() == Polar)
-		{
-			cout << M->getID();
-		}
+		cout << M->getID();
+		i++;
 	}
 	cout << "}";
 
