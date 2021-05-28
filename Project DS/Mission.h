@@ -13,11 +13,18 @@ private:
 	int TargetLoc;
 	int duration;
 	int Sign;
+	int WD;
+	int ED;
+	int CD;
 	Rover* roverAssign;
+
+	void calcED() {
+		
+	}
 
 public:
 	Mission(){}
-	Mission(int id, TYPE Type, int FD, int TargetLoc, int duration, int Sign, Rover* roverAssign = NULL) {
+	Mission(int id, TYPE Type, int FD, int TargetLoc, int duration, int Sign, Rover* roverAssign = nullptr) {
 		this->id = id;
 		this->Type = Type;
 		this->FD = FD;
@@ -35,13 +42,19 @@ public:
 	int getduration() { return duration; }
 	int getSign() { return Sign; }
 	Rover* getRover() { return roverAssign; }
+	int getCD() { return CD; }
+	int getWD() { return WD; }
+	int getED() { return ED; }
 
 	//SET
 	void setType(TYPE Rovertype) { this->Type = Type; }
 	void setFD(int FD) { this->FD = FD; }
 	void setTargetLoc(int TargetLoc) { this->TargetLoc = TargetLoc; }
 	void setduration(int duration) { this->duration = duration; }
-	void getSign(int Sign) { this->Sign = Sign; }
+	void setSign(int Sign) { this->Sign = Sign; }
 	void setRover(Rover* roverAssign) { this-> roverAssign = roverAssign; }
+	void setCD(int CD) { this->CD = CD; }
+	void setWD(int WD) { this->WD = WD; }
+	void setED(int ED) { this->ED = ED; }
 };
 

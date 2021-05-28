@@ -41,9 +41,10 @@ void Formulation::setSIG(int SIG) {
 }
 
 
-char Formulation::getMissionType() {
-
+TYPE Formulation::getMissionType() {
+	return missionType;
 }
+
 int Formulation::getED() {
 	return ED;
 }

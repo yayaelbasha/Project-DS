@@ -2,7 +2,7 @@
 #include "station.h"
 using namespace std;
 
-
+#include "LinkedPriQueue.h"
 
 int main(){
 

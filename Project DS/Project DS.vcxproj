@@ -158,6 +158,7 @@
     <ClInclude Include="LinkedQueue.h" />
     <ClInclude Include="Mission.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="NodePri.h" />
     <ClInclude Include="PriQueueADT.h" />
     <ClInclude Include="Promotion.h" />
     <ClInclude Include="QueueADT.h" />

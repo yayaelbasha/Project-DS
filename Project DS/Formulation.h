@@ -23,7 +23,7 @@ public:
 	void setMDUR(int MDUR);
 	void setSIG(int SIG);
 
-	char getMissionType();
+	TYPE getMissionType();
 	int getED();
 	int getID();
 	int getTLOC();

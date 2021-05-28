@@ -14,10 +14,9 @@ class station
 {
 private:
 	LinkedQueue<Mission*> WaitMissionsP;
-	LinkedQueue<Mission*> WaitMissionsE;
+	LinkedPriQueue<Mission*> WaitMissionsE;
 
-	LinkedQueue<Mission*> InExMissionsE;
-	LinkedQueue<Mission*> InExMissionsP;
+	LinkedPriQueue<Mission*> InExMissions;
 
 	LinkedQueue<Rover*> AvailRovP;
 	LinkedQueue<Rover*> AvailRovE;
@@ -25,8 +24,7 @@ private:
 	LinkedQueue<Rover*> InCheckRov;
 	LinkedQueue<Mission*> CompletedMissions;
 
-	LinkedQueue<Rover*> InExRovE;
-	LinkedQueue<Rover*> InExRovP;
+	LinkedPriQueue<Rover*> InExRov;
 
 	UIclass UI;
 
@@ -83,6 +81,7 @@ public:
 		{
 			Formulation* F;
 			Mission* M;
+			Rover* R;
 
 			Events.peek(F);
 			if (F->getED() == Day)
@@ -92,13 +91,41 @@ public:
 				Events.dequeue(F);
 			}
 
-			if (WaitMissionsE.peek(M))
+			if (WaitMissionsE.dequeue(M))
 			{
-				
+				if (!AvailRovE.isEmpty())
+				{
+					AvailRovE.dequeue(R);
+					M->setRover(R);
+
+					InExMissions.enqueue(M);
+					InExRov.enqueue(R);
+				}
+				else
+				{
+					AvailRovP.dequeue(R);
+					M->setRover(R);
+
+					InExMissions.enqueue(M);
+					InExRov.enqueue(R);
+				}
+			}
+			else
+			{
+				if (!AvailRovP.isEmpty())
+				{
+					if (WaitMissionsP.dequeue(M)) {
+						AvailRovP.dequeue(R);
+						M->setRover(R);
+
+						InExMissions.enqueue(M);
+						InExRov.enqueue(R);
+					}
+				}
 			}
 
 			Day++;
-		} while (!WaitMissionsP.isEmpty() && !WaitMissionsE.isEmpty() && !InExMissionsE.isEmpty() && !InExMissionsP.isEmpty() && !Events.isEmpty());
+		} while (!WaitMissionsP.isEmpty() && !WaitMissionsE.isEmpty() && !InExMissions.isEmpty() && !Events.isEmpty());
 	}
 };
 
