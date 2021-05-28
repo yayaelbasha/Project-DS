@@ -250,7 +250,7 @@ void OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPriQueue<Mi
 	cout << "] ";
 
 	cout << "{";
-	int i = 0;
+	i = 0;
 	while (CompletedMissions.dequeue(M))
 	{
 		if (i > 0)

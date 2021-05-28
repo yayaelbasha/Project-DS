@@ -5,11 +5,11 @@ using namespace std;
 #include "UI.h"
 #include "LinkedQueue.h"
 
-int main(){
-
-	station marsSt;
+int main()
+{
+	station marsStation;
 	
-	marsSt.excute();
+	marsStation.excute();
 	
 	return 0;
 }
