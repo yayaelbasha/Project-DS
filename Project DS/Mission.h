@@ -58,6 +58,8 @@ public:
 		return ED; 
 	}
 
+	// m1 - 4 - wait 
+
 	//SET
 	void setType(TYPE Rovertype) { this->Type = Type; }
 	void setFD(int FD) { this->FD = FD; }

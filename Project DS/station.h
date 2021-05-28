@@ -77,17 +77,20 @@ public:
 			AvailRovP.enqueue(R);
 		}
 		int Day = 1;
+
 		do
 		{
 			Formulation* F;
 			Mission* M;
 			Rover* R;
 
-			Events.peek(F);
-			if (F->getED() == Day)
+			
+			while (Events.peek(F),F->getED() == Day)
 			{
-				if (F->getMissionType()==Polar) WaitMissionsP.enqueue(F->Execute());
-				else if (F->getMissionType() == Emergency) WaitMissionsE.enqueue(F->Execute(), F->Execute()->getSign());
+				if (F->getMissionType()==Polar) 
+					WaitMissionsP.enqueue(F->Execute());
+				else if (F->getMissionType() == Emergency)
+					WaitMissionsE.enqueue(F->Execute(), F->Execute()->getSign());
 				Events.dequeue(F);
 			}
 
@@ -97,6 +100,7 @@ public:
 				{
 					AvailRovE.dequeue(R);
 					M->setRover(R);
+					R->SetMission(M);
 					M->setWD(Day - M->getFD());
 
 					InExMissions.enqueue(M,M->getCD());
@@ -105,7 +109,10 @@ public:
 				else
 				{
 					AvailRovP.dequeue(R);
+					
 					M->setRover(R);
+					R->SetMission(M);
+
 					M->setWD(Day - M->getFD());
 
 					InExMissions.enqueue(M,M->getCD());
@@ -118,7 +125,10 @@ public:
 				{
 					if (WaitMissionsP.dequeue(M)) {
 						AvailRovP.dequeue(R);
+
 						M->setRover(R);
+						R->SetMission(M);
+
 						M->setWD(Day - M->getFD());
 
 						InExMissions.enqueue(M, M->getCD());
@@ -128,6 +138,7 @@ public:
 			}
 
 			Day++;
+		
 		} while (!WaitMissionsP.isEmpty() && !WaitMissionsE.isEmpty() && !InExMissions.isEmpty() && !Events.isEmpty());
 	}
 };
