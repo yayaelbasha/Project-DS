@@ -3,6 +3,7 @@
 #include "Mission.h"
 #include "Defs.H"
 #include "Rover.h"
+#include <cmath>
 
 class Mission{
 
@@ -19,7 +20,10 @@ private:
 	Rover* roverAssign;
 
 	void calcED() {
-		
+		ED = duration + 2 * ceil((TargetLoc / roverAssign->getspeed()) / 25);
+	}
+	void calcCD() {
+		CD = FD + ED + WD;
 	}
 
 public:
@@ -31,6 +35,7 @@ public:
 		this->TargetLoc = TargetLoc;
 		this->duration = duration;
 		this->Sign = Sign;
+		WD = 0;
 	}
 
 	/// Set and Get for Data members
@@ -42,9 +47,16 @@ public:
 	int getduration() { return duration; }
 	int getSign() { return Sign; }
 	Rover* getRover() { return roverAssign; }
-	int getCD() { return CD; }
+	int getCD() {
+		calcED();
+		calcCD();
+		return CD; 
+	}
 	int getWD() { return WD; }
-	int getED() { return ED; }
+	int getED() { 
+		calcED();
+		return ED; 
+	}
 
 	//SET
 	void setType(TYPE Rovertype) { this->Type = Type; }
