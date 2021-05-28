@@ -4,9 +4,12 @@
 #include "Defs.H"
 #include "Mission.h"
 
+class Mission;
+
 class Rover
 {
 private:
+	int Id;
 	TYPE Rovertype;
 	int checkDur;
 	int speed;
@@ -20,20 +23,18 @@ public:
 	Rover(TYPE Rovertype,int checkDur,int speed, int missionLimit);
 
 	// Set And Get for Data members
-	TYPE getRovertype() {return Rovertype;}
-	int getcheckDur() { return checkDur; }
-	int getspeed() { return speed; }
-	bool getIsCheckUp() { return IsCheckUp; }
-	Mission* getMission() { return missionAssign; }
+	TYPE getRovertype();
+	int getcheckDur();
+	int getspeed();
+	bool getIsCheckUp();
+	Mission* getMission();
+	int getId();
 
-	void setRovertype(TYPE Rovertype) { this->Rovertype = Rovertype; }
-	void setcheckDur(int checkDur) { this->checkDur = checkDur; }
-	void setspeed(int speed) {this->speed = speed;}
-	void SetMission(Mission* missionAssign) { 
-		this->missionAssign = missionAssign; 
-		missionsDone++;
-	}
-
+	void setRovertype(TYPE Rovertype);
+	void setcheckDur(int checkDur);
+	void setspeed(int speed);
+	void SetMission(Mission* missionAssign);
+	void setId(int Id);
 };
 
 #endif

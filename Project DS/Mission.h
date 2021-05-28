@@ -5,70 +5,53 @@
 #include "Rover.h"
 #include <cmath>
 
+class Rover;
+
 class Mission{
 
 private:
 	int id;
 	TYPE Type;
-	int FD;
 	int TargetLoc;
 	int duration;
 	int Sign;
+	Rover* roverAssign;
+
+	int FD;
 	int WD;
 	int ED;
 	int CD;
-	Rover* roverAssign;
 
-	void calcED() {
-		ED = duration + 2 * ceil((TargetLoc / roverAssign->getspeed()) / 25);
-	}
-	void calcCD() {
-		CD = FD + ED + WD;
-	}
+	void calcED();
+	void calcCD();
 
 public:
-	Mission(){}
-	Mission(int id, TYPE Type, int FD, int TargetLoc, int duration, int Sign, Rover* roverAssign = nullptr) {
-		this->id = id;
-		this->Type = Type;
-		this->FD = FD;
-		this->TargetLoc = TargetLoc;
-		this->duration = duration;
-		this->Sign = Sign;
-		WD = 0;
-	}
+	Mission();
+	Mission(int id, TYPE Type, int FD, int TargetLoc, int duration, int Sign, Rover* roverAssign = nullptr);
+
 
 	/// Set and Get for Data members
-
 	//GET
-	TYPE getType() { return Type; }
-	int getFD() { return FD; }
-	int getTargetLoc() { return TargetLoc; }
-	int getduration() { return duration; }
-	int getSign() { return Sign; }
-	Rover* getRover() { return roverAssign; }
-	int getCD() {
-		calcED();
-		calcCD();
-		return CD; 
-	}
-	int getWD() { return WD; }
-	int getED() { 
-		calcED();
-		return ED; 
-	}
-
-	// m1 - 4 - wait 
+	TYPE getType();
+	int getID();
+	int getFD();
+	int getTargetLoc();
+	int getduration();
+	int getSign();
+	Rover* getRover();
+	int getCD();
+	int getWD();
+	int getED();
 
 	//SET
-	void setType(TYPE Rovertype) { this->Type = Type; }
-	void setFD(int FD) { this->FD = FD; }
-	void setTargetLoc(int TargetLoc) { this->TargetLoc = TargetLoc; }
-	void setduration(int duration) { this->duration = duration; }
-	void setSign(int Sign) { this->Sign = Sign; }
-	void setRover(Rover* roverAssign) { this-> roverAssign = roverAssign; }
-	void setCD(int CD) { this->CD = CD; }
-	void setWD(int WD) { this->WD = WD; }
-	void setED(int ED) { this->ED = ED; }
+	void setType(TYPE Rovertype);
+	void setFD(int FD);
+	void setTargetLoc(int TargetLoc);
+	void setduration(int duration);
+	void setSign(int Sign);
+	void setRover(Rover* roverAssign);
+	void setCD(int CD);
+	void setWD(int WD);
+	void setED(int ED);
 };
 

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LINKED_Pri_QUEUE_
+#define LINKED_Pri_QUEUE_
 
 #include "PriQueueADT.h"
 #include "NodePri.h"
@@ -8,12 +9,16 @@ class LinkedPriQueue : public PriQueueADT<T>
 {
 	NodePri<T>* backPtr;
 	NodePri<T>* frontPtr;
+	int Count;
+
 public:
 	LinkedPriQueue();
 	bool isEmpty() const;
-	bool enqueue(const T& newEntry, int priority);
+	bool enqueueAsc(const T& newEntry, int priority);
+	bool enqueueDesc(const T& newEntry, int priority);
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
+	int size();
 	~LinkedPriQueue();
 
 	//copy constructor
@@ -32,6 +37,7 @@ LinkedPriQueue<T>::LinkedPriQueue()
 {
 	backPtr = nullptr;
 	frontPtr = nullptr;
+	Count = 0;
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -52,14 +58,14 @@ bool LinkedPriQueue<T>::isEmpty() const
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /*Function:enqueue
-Adds newEntry at the back of this queue.
+Adds newEntry at the back of this queue Asc.
 
 Input: newEntry .
 Output: True if the operation is successful; otherwise false.
 */
 
 template <typename T>
-bool LinkedPriQueue<T>::enqueue(const T& newEntry, int priority)
+bool LinkedPriQueue<T>::enqueueAsc(const T& newEntry, int priority)
 {
 	NodePri<T>* tmp, * q;
 	tmp = new NodePri<T>;
@@ -78,6 +84,38 @@ bool LinkedPriQueue<T>::enqueue(const T& newEntry, int priority)
 		tmp->setNext(q->getNext());
 		q->setNext(tmp);
 	}
+	Count++;
+	return true;
+} // end enqueue
+
+/*Function:enqueue
+Adds newEntry at the back of this queue Asc.
+
+Input: newEntry .
+Output: True if the operation is successful; otherwise false.
+*/
+
+template <typename T>
+bool LinkedPriQueue<T>::enqueueDesc(const T& newEntry, int priority)
+{
+	NodePri<T>* tmp, * q;
+	tmp = new NodePri<T>;
+	tmp->setItem(newEntry);
+	tmp->setPriority(priority);
+	if (frontPtr == nullptr || priority > frontPtr->getPriority())
+	{
+		tmp->setNext(frontPtr);
+		frontPtr = tmp;
+	}
+	else
+	{
+		q = frontPtr;
+		while (q->getNext() != nullptr && q->getNext()->getPriority() >= priority)
+			q = q->getNext();
+		tmp->setNext(q->getNext());
+		q->setNext(tmp);
+	}
+	Count++;
 	return true;
 } // end enqueue
 
@@ -108,6 +146,7 @@ bool LinkedPriQueue<T>::dequeue(T& frntEntry)
 	// Free memory reserved for the dequeued NodePri
 	delete NodePriToDeletePtr;
 
+	Count--;
 	return true;
 
 }
@@ -128,6 +167,20 @@ bool LinkedPriQueue<T>::peek(T& frntEntry) const
 	frntEntry = frontPtr->getItem();
 	return true;
 
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+/*
+Function: size
+return size
+*/
+template <typename T>
+int LinkedPriQueue<T>::size()
+{
+	if (isEmpty())
+		return 0;
+
+	return Count;
 }
 ///////////////////////////////////////////////////////////////////////////////////
 /*
@@ -175,5 +228,6 @@ LinkedPriQueue<T>::LinkedPriQueue(const LinkedPriQueue<T>& LQ)
 		backPtr = ptr;
 		NodePriPtr = NodePriPtr->getNext();
 	}
-};
+}
 
+#endif

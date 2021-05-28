@@ -1,12 +1,12 @@
 #pragma once
 
 #include "LinkedQueue.h"
+#include "LinkedPriQueue.h"
 #include "Mission.h"
 #include "Rover.h"
 #include "event.h"
 #include "UI.h"
 #include "Formulation.h"
-
 #include <fstream>
 
 
@@ -31,21 +31,6 @@ private:
 public:
 	station() {};
 
-	/*void read() {
-
-		int MOU, EME, POL;
-
-		ifstream inputFile;
-		inputFile.open("x.txt");
-		inputFile >> MOU >> EME >> POL;
-	}
-	
-	void write() {
-		ofstream outputFile;
-		outputFile.open("z.txt");
-		outputFile << 12 << " " << 13 << " " << 14 << " ";
-	}*/
-	
 	void excute() {
 
 		int numRovP;
@@ -63,6 +48,7 @@ public:
 		int eventsNum;
 		LinkedQueue<Formulation*> Events;
 
+		// Load Input File
 		UI.InputFile(numRovP,numRovE, speedRovP, speedRovE, numCheckup, checkupDurP, checkupDurE, eventsNum, Events);
 
 		for (int i = 0; i < numRovE; i++)
@@ -83,14 +69,13 @@ public:
 			Formulation* F;
 			Mission* M;
 			Rover* R;
-
 			
-			while (Events.peek(F),F->getED() == Day)
+			while (Events.peek(F) && F->getED() == Day)
 			{
 				if (F->getMissionType()==Polar) 
 					WaitMissionsP.enqueue(F->Execute());
 				else if (F->getMissionType() == Emergency)
-					WaitMissionsE.enqueue(F->Execute(), F->Execute()->getSign());
+					WaitMissionsE.enqueueDesc(F->Execute(), F->Execute()->getSign());
 				Events.dequeue(F);
 			}
 
@@ -103,8 +88,8 @@ public:
 					R->SetMission(M);
 					M->setWD(Day - M->getFD());
 
-					InExMissions.enqueue(M,M->getCD());
-					InExRov.enqueue(R, M->getCD());
+					InExMissions.enqueueAsc(M,M->getCD());
+					InExRov.enqueueAsc(R, M->getCD());
 				}
 				else
 				{
@@ -115,8 +100,8 @@ public:
 
 					M->setWD(Day - M->getFD());
 
-					InExMissions.enqueue(M,M->getCD());
-					InExRov.enqueue(R, M->getCD());
+					InExMissions.enqueueAsc(M,M->getCD());
+					InExRov.enqueueAsc(R, M->getCD());
 				}
 			}
 			else
@@ -131,8 +116,8 @@ public:
 
 						M->setWD(Day - M->getFD());
 
-						InExMissions.enqueue(M, M->getCD());
-						InExRov.enqueue(R, M->getCD());
+						InExMissions.enqueueAsc(M, M->getCD());
+						InExRov.enqueueAsc(R, M->getCD());
 					}
 				}
 			}
@@ -140,6 +125,9 @@ public:
 			Day++;
 		
 		} while (!WaitMissionsP.isEmpty() && !WaitMissionsE.isEmpty() && !InExMissions.isEmpty() && !Events.isEmpty());
+		
+		// Save Output File
+		UI.OutputFile(CompletedMissions, AvailRovP.size(),AvailRovE.size());
 	}
 };
 
