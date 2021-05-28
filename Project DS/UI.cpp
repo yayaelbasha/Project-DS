@@ -24,7 +24,7 @@ using namespace std;
 
 UIclass::UIclass() {}
 
-void UIclass::InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRovE, int& numCheckup, int& checkupDurP, int& checkupDurE, int& AutoP, int& eventsNum, LinkedQueue<Formulation*>& Events)
+void UIclass::InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRovE, int& numCheckup, int& checkupDurP, int& checkupDurE, int& eventsNum, LinkedQueue<Formulation*>& Events)
 {
 	char missionType;
 	int ED;
@@ -41,7 +41,7 @@ void UIclass::InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRo
 		inputFile >> numRovE >> numRovP;
 		inputFile >> speedRovE >> speedRovP;
 		inputFile >> numCheckup >> checkupDurE >> checkupDurP;
-		inputFile >> AutoP >> eventsNum;
+		inputFile >> eventsNum;
 
 		for (int i = 0; i < eventsNum; i++)
 		{
@@ -57,7 +57,7 @@ void UIclass::InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRo
 				F->setID(Id);
 				F->setTLOC(TLOC);
 				F->setMDUR(MDUR);
-				F->setMDUR(SIG);
+				F->setSIG(SIG);
 				Events.enqueue(F);
 			}
 		}
@@ -69,8 +69,9 @@ void UIclass::InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRo
 	inputFile.close();
 }
 
-void UIclass::OutputFile()
+void UIclass::OutputFile(int CD, int ID, int FD, int WD, int ED)
 {
 	ofstream outputFile("output.txt", ios::out);
 
+	outputFile << "CD\t" << "ID\t" << "FD\t" << "WD\t" << "ED";
 }

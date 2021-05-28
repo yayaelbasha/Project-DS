@@ -13,26 +13,27 @@
 class station
 {
 private:
-	LinkedQueue<Mission<int>> WaitMissionsP;
-	LinkedQueue<Mission<int>> WaitMissionsE;
+	LinkedQueue<Mission*> WaitMissionsP;
+	LinkedQueue<Mission*> WaitMissionsE;
 
-	LinkedQueue<Mission<int>> InExMissionsE;
-	LinkedQueue<Mission<int>> InExMissionsP;
+	LinkedQueue<Mission*> InExMissionsE;
+	LinkedQueue<Mission*> InExMissionsP;
 
-	LinkedQueue<Mission<int>> AvailRov;
+	LinkedQueue<Rover*> AvailRovP;
+	LinkedQueue<Rover*> AvailRovE;
 
-	LinkedQueue<Mission<int>> InCheckRov;
-	LinkedQueue<Mission<int>> CompletedMissions;
+	LinkedQueue<Rover*> InCheckRov;
+	LinkedQueue<Mission*> CompletedMissions;
 
-	LinkedQueue<Mission<int>> InExRovE;
-	LinkedQueue<Mission<int>> InExRovP;
+	LinkedQueue<Rover*> InExRovE;
+	LinkedQueue<Rover*> InExRovP;
 
 	UIclass UI;
 
 public:
 	station() {};
 
-	void read() {
+	/*void read() {
 
 		int MOU, EME, POL;
 
@@ -45,9 +46,10 @@ public:
 		ofstream outputFile;
 		outputFile.open("z.txt");
 		outputFile << 12 << " " << 13 << " " << 14 << " ";
-	}
+	}*/
 	
 	void excute() {
+
 		int numRovP;
 		int numRovE;
 
@@ -63,8 +65,40 @@ public:
 		int eventsNum;
 		LinkedQueue<Formulation*> Events;
 
-		UI.InputFile(numRovP,numRovE, speedRovP, speedRovE, numCheckup, checkupDurP, checkupDurE, AutoP, eventsNum,Events);
+		UI.InputFile(numRovP,numRovE, speedRovP, speedRovE, numCheckup, checkupDurP, checkupDurE, eventsNum, Events);
 
+		for (int i = 0; i < numRovE; i++)
+		{
+			Rover* R = new Rover(Emergency, checkupDurE, speedRovE, numCheckup);
+			AvailRovE.enqueue(R);
+		}
+
+		for (int i = 0; i < numRovP; i++)
+		{
+			Rover* R = new Rover(Polar,checkupDurP,speedRovP, numCheckup);
+			AvailRovP.enqueue(R);
+		}
+		int Day = 1;
+		do
+		{
+			Formulation* F;
+			Mission* M;
+
+			Events.peek(F);
+			if (F->getED() == Day)
+			{
+				if (F->getMissionType()==Polar) WaitMissionsP.enqueue(F->Execute());
+				else if (F->getMissionType() == Emergency) WaitMissionsE.enqueue(F->Execute());
+				Events.dequeue(F);
+			}
+
+			if (WaitMissionsE.peek(M))
+			{
+				
+			}
+
+			Day++;
+		} while (!WaitMissionsP.isEmpty() && !WaitMissionsE.isEmpty() && !InExMissionsE.isEmpty() && !InExMissionsP.isEmpty() && !Events.isEmpty());
 	}
 };
 

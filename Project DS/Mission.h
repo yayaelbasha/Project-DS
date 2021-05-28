@@ -1,23 +1,25 @@
 #pragma once
 
+#include "Mission.h"
 #include "Defs.H"
+#include "Rover.h"
 
-template <typename T>
 class Mission{
 
 private:
 	int id;
-	TYPE Rovertype;
+	TYPE Type;
 	int FD;
-	T TargetLoc;
-	T duration;
+	int TargetLoc;
+	int duration;
 	int Sign;
+	Rover* roverAssign;
 
 public:
 	Mission(){}
-	Mission(int id, TYPE Rovertype, int FD, T TargetLoc, T duration, int Sign) {
+	Mission(int id, TYPE Type, int FD, int TargetLoc, int duration, int Sign, Rover* roverAssign = NULL) {
 		this->id = id;
-		this->Rovertype = Rovertype;
+		this->Type = Type;
 		this->FD = FD;
 		this->TargetLoc = TargetLoc;
 		this->duration = duration;
@@ -27,17 +29,19 @@ public:
 	/// Set and Get for Data members
 
 	//GET
-	TYPE getRovertype() { return Rovertype; }
+	TYPE getType() { return Type; }
 	int getFD() { return FD; }
-	T getTargetLoc() { return TargetLoc; }
-	T getduration() { return duration; }
+	int getTargetLoc() { return TargetLoc; }
+	int getduration() { return duration; }
 	int getSign() { return Sign; }
+	Rover* getRover() { return roverAssign; }
 
 	//SET
-	void setRovertype(TYPE Rovertype) { this->Rovertype = Rovertype; }
+	void setType(TYPE Rovertype) { this->Type = Type; }
 	void setFD(int FD) { this->FD = FD; }
-	void setTargetLoc(T TargetLoc) { this->TargetLoc = TargetLoc; }
-	void setduration(T duration) { this->duration = duration; }
+	void setTargetLoc(int TargetLoc) { this->TargetLoc = TargetLoc; }
+	void setduration(int duration) { this->duration = duration; }
 	void getSign(int Sign) { this->Sign = Sign; }
+	void setRover(Rover* roverAssign) { this-> roverAssign = roverAssign; }
 };
 

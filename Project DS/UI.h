@@ -34,8 +34,8 @@ public:
 public:
 	UIclass();
 	
-	void InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRovE, int& numCheckup, int& checkupDurP, int& checkupDurE, int& AutoP, int& eventsNum, LinkedQueue<Formulation*>& Events);
-	void OutputFile();
+	void InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRovE, int& numCheckup, int& checkupDurP, int& checkupDurE, int& eventsNum, LinkedQueue<Formulation*>& Events);
+	void OutputFile(int CD, int ID, int FD, int WD, int ED);
 };
 
 

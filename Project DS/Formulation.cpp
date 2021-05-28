@@ -40,6 +40,27 @@ void Formulation::setSIG(int SIG) {
 	this->SIG = SIG;
 }
 
-void Formulation::Execute() {
 
+char Formulation::getMissionType() {
+
+}
+int Formulation::getED() {
+	return ED;
+}
+int Formulation::getID() {
+	return ID;
+}
+int Formulation::getTLOC() {
+	return TLOC;
+}
+int Formulation::getMDUR() {
+	return MDUR;
+}
+int Formulation::getSIG() {
+	return SIG;
+}
+
+Mission* Formulation::Execute() {
+	Mission* mission = new Mission(ID, missionType,ED,TLOC,MDUR,SIG);
+	return mission;
 }

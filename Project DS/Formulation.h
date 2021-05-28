@@ -1,5 +1,6 @@
 #pragma once
 #include "event.h"
+#include "Mission.h"
 #include "Defs.H"
 
 class Formulation {
@@ -22,10 +23,15 @@ public:
 	void setMDUR(int MDUR);
 	void setSIG(int SIG);
 
+	char getMissionType();
+	int getED();
+	int getID();
+	int getTLOC();
+	int getMDUR();
+	int getSIG();
 
-	void Execute();
+	Mission* Execute();
 	
 	~Formulation();
-
 };
 
