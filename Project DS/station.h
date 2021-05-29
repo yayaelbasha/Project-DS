@@ -67,7 +67,7 @@ public:
 				if (Day - 1 != 0)
 				{
 					UI.OutputScreen(Day - 1, WaitMissionsP, WaitMissionsE, InExMissions, AvailRovP, AvailRovE, InCheckRov, CompletedMissions);
-					Sleep(50);
+					Sleep(1500);
 				}
 			} while (!WaitMissionsP.isEmpty() || !WaitMissionsE.isEmpty() || !InExMissions.isEmpty() || !Events.isEmpty());
 

@@ -190,40 +190,52 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 	cout << endl;
 
 	cout << "------------------------------------------------------" << endl;
+
 	int InExSize = InExMissions.size();
+	LinkedPriQueue<Mission*> InExMissionsE;
+	LinkedPriQueue<Mission*> InExMissionsP;
+	while (InExMissions.dequeue(M))
+	{
+		if (M->getType() == Emergency) InExMissionsE.enqueueAsc(M, M->getCD());
+		else if (M->getType() == Polar) InExMissionsP.enqueueAsc(M, M->getCD());
+	}
+	int InExSizeE = InExMissionsE.size();
+	int InExSizeP = InExMissionsP.size();
+
 	cout << InExSize <<" In-Execution Missions/Rovers: ";
 
 	cout << "[";
-	for (int i = 0; i < InExSize; i++)
+	for (int i = 0; i < InExSizeE; i++)
 	{
-		InExMissions.dequeue(M);
-		if (M->getType() == Emergency)
-		{
-			if (i > 0 && i !=InExSize)
+		if (InExMissionsE.dequeue(M)) {
+			if (i > 0 && i != InExSizeE)
 			{
 				cout << ", ";
 			}
-			cout << M->getID() << "/" << M->getRover()->getId();
-		}
-		else
-		{
-			InExMissions.enqueueAsc(M,M->getCD());
+			if (M->getType() == Emergency)
+			{
+				cout << M->getID() << "/" << M->getRover()->getId();
+			}
 		}
 	}
 	cout << "] ";
 
 	cout << "{";
-	int i = 0;
-	while (InExMissions.dequeue(M))
+	for (int i = 0; i < InExSizeP; i++)
 	{
-		if (i > 0)
-		{
-			cout << ", ";
+		if (InExMissionsP.dequeue(M)) {
+			if (i > 0 && i != InExSizeP)
+			{
+				cout << ", ";
+			}
+			if (M->getType() == Polar)
+			{
+				cout << M->getID() << "/" << M->getRover()->getId();
+			}
 		}
-		cout << M->getID() << "/" << M->getRover()->getId();
-		i++;
 	}
 	cout << "}";
+	
 
 	cout << endl;
 	
@@ -264,42 +276,53 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 		}
 	}
 	cout << "}";
+
 	cout << endl;
 	
 	cout << "------------------------------------------------------" << endl;
 	
 	int sizeCheckRov = InCheckRov.size();
+	LinkedQueue<Rover*> InCheckRovE;
+	LinkedQueue<Rover*> InCheckRovP;
+	while (InCheckRov.dequeue(R))
+	{
+		if (R->getRovertype() == Emergency) InCheckRovE.enqueue(R);
+		else if (R->getRovertype() == Polar) InCheckRovP.enqueue(R);
+	}
+	int InCheckRovEsize = InCheckRovE.size();
+	int InCheckRovPsize = InCheckRovP.size();
+
 	cout << sizeCheckRov << " In-Checkup Rovers: ";
 
 	cout << "[";
-	for (int i = 0; i < sizeCheckRov; i++)
+	for (int i = 0; i < InCheckRovEsize; i++)
 	{
-		InCheckRov.dequeue(R);
-		if (R->getRovertype() == Emergency)
-		{
-			if (i > 0 && i !=sizeCheckRov)
+		if (InCheckRovE.dequeue(R)) {
+			if (i > 0 && i != InCheckRovEsize)
 			{
 				cout << ", ";
 			}
-			cout << R->getId();
-		}
-		else
-		{
-			InCheckRov.enqueue(R);
+			if (R->getRovertype() == Emergency)
+			{
+				cout << R->getId();
+			}
 		}
 	}
 	cout << "] ";
 
 	cout << "{";
-	i = 0;
-	while (InCheckRov.dequeue(R))
+	for (int i = 0; i < InCheckRovPsize; i++)
 	{
-		if (i > 0)
-		{
-			cout << ", ";
+		if (InCheckRovP.dequeue(R)) {
+			if (i > 0 && i != InCheckRovPsize)
+			{
+				cout << ", ";
+			}
+			if (R->getRovertype() == Polar)
+			{
+				cout << R->getId();
+			}
 		}
-		cout << R->getId();
-		i++;
 	}
 	cout << "}";
 
@@ -330,7 +353,7 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 	cout << "] ";
 
 	cout << "{";
-	i = 0;
+	int i = 0;
 	while (CompletedMissions.dequeue(M))
 	{
 		if (i > 0)
