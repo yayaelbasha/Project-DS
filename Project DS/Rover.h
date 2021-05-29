@@ -11,6 +11,7 @@ class Rover
 private:
 	static int NewId;
 	const int Id;
+
 	TYPE Rovertype;
 	int checkDur;
 	int speed;
@@ -18,6 +19,7 @@ private:
 	bool IsCheckUp;
 	int missionsDone;
 	Mission* missionAssign;
+	int ReleaseDay;
 
 public:
 	Rover();
@@ -30,11 +32,20 @@ public:
 	bool getIsCheckUp();
 	Mission* getMission();
 	int getId();
+	int getMissionsDone();
+	int getMissionLimit();
+	int getReleaseDay();
 
 	void setRovertype(TYPE Rovertype);
 	void setcheckDur(int checkDur);
 	void setspeed(int speed);
 	void SetMission(Mission* missionAssign);
+	void setMissionsDone(int missionsDone);
+	void setMissionLimit(int missionLimit);
+	void setReleaseDay(int Day);
+
+
+
 };
 
 #endif

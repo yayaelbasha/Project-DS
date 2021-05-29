@@ -40,32 +40,43 @@ public:
 
 		int mode = UI.start();
 		
+		Load();
+
 
 		switch (mode) {
 		case 1:			
 			
-			Load();
 			
 			do
 			{
 				Execute();
-				UI.OutputScreen(Day, WaitMissionsP, WaitMissionsE, InExMissions, AvailRovP, AvailRovE, InCheckRov, CompletedMissions);
-				system("pause");
+				if (Day-1 != 0)
+				{
+					UI.OutputScreen(Day - 1, WaitMissionsP, WaitMissionsE, InExMissions, AvailRovP, AvailRovE, InCheckRov, CompletedMissions);
+					system("pause");
+				}
 
-			}while (!WaitMissionsP.isEmpty() || !WaitMissionsE.isEmpty() || !InExMissions.isEmpty() || !Events.isEmpty());			
+			}while (!WaitMissionsP.isEmpty() || !WaitMissionsE.isEmpty() || !InExMissions.isEmpty() || !InCheckRov.isEmpty() || !Events.isEmpty());			
 			break;
 
 		case 2:
-			Load();
 
 			do
 			{
 				Execute();
-				UI.OutputScreen(Day, WaitMissionsP, WaitMissionsE, InExMissions, AvailRovP, AvailRovE, InCheckRov, CompletedMissions);
-				Sleep(1000);
+				if (Day - 1 != 0)
+				{
+					UI.OutputScreen(Day - 1, WaitMissionsP, WaitMissionsE, InExMissions, AvailRovP, AvailRovE, InCheckRov, CompletedMissions);
+					Sleep(50);
+				}
 			} while (!WaitMissionsP.isEmpty() || !WaitMissionsE.isEmpty() || !InExMissions.isEmpty() || !Events.isEmpty());
 
 			break;
+		case 3:
+			do
+			{
+				Execute();
+			} while (!WaitMissionsP.isEmpty() || !WaitMissionsE.isEmpty() || !InExMissions.isEmpty() || !Events.isEmpty());
 
 		default:
 			break;
@@ -92,40 +103,22 @@ public:
 			Events.dequeue(F);
 		}
 
-		if (WaitMissionsE.dequeue(M))
+		if (!AvailRovE.isEmpty() || !AvailRovP.isEmpty())
 		{
-			if (!AvailRovE.isEmpty())
+			while (WaitMissionsE.dequeue(M))
 			{
-				AvailRovE.dequeue(R);
-				M->setRover(R);
-				R->SetMission(M);
-				M->setWD(Day - M->getFD());
+				if (!AvailRovE.isEmpty())
+				{
+					AvailRovE.dequeue(R);
+					M->setRover(R);
+					R->SetMission(M);
+					M->setWD(Day - M->getFD());
 
-				InExMissions.enqueueAsc(M,M->getCD());
-				InExRov.enqueueAsc(R, M->getCD());
-			}
-			else if (!AvailRovP.isEmpty())
-			{
-				AvailRovP.dequeue(R);
-					
-				M->setRover(R);
-				R->SetMission(M);
-
-				M->setWD(Day - M->getFD());
-
-				InExMissions.enqueueAsc(M,M->getCD());
-				InExRov.enqueueAsc(R, M->getCD());
-			}
-			else
-			{
-				WaitMissionsE.enqueueDesc(M, M->getSign());
-			}
-		}
-		else
-		{
-			if (!AvailRovP.isEmpty())
-			{
-				if (WaitMissionsP.dequeue(M)) {
+					InExMissions.enqueueAsc(M, M->getCD());
+					InExRov.enqueueAsc(R, M->getCD());
+				}
+				else if (!AvailRovP.isEmpty())
+				{
 					AvailRovP.dequeue(R);
 
 					M->setRover(R);
@@ -137,16 +130,58 @@ public:
 					InExRov.enqueueAsc(R, M->getCD());
 				}
 			}
+
+			while (WaitMissionsP.peek(M) && !AvailRovP.isEmpty())
+			{
+				AvailRovP.dequeue(R);
+				WaitMissionsP.dequeue(M);
+
+				M->setRover(R);
+				R->SetMission(M);
+
+				M->setWD(Day - M->getFD());
+
+				InExMissions.enqueueAsc(M, M->getCD());
+				InExRov.enqueueAsc(R, M->getCD());
+
+			}
 		}
 
 		while (InExMissions.peek(M) && M->getCD() == Day)
 		{
 			CompletedMissions.enqueue(M);
 			InExMissions.dequeue(M);
+			InExRov.dequeue(R);
+			
+			if (R->getMissionsDone() == R->getMissionLimit())
+			{
+				R->setMissionsDone(0);
+				R->setReleaseDay(Day);
+				InCheckRov.enqueue(R);
+			}
+			else {
+				if (R->getRovertype() == Emergency)
+				{
+					AvailRovE.enqueue(R);
+				}
+				else {
+					AvailRovP.enqueue(R);
+				}
+			}
 		}
 
+		while (InCheckRov.peek(R) && R->getReleaseDay() == Day)
+		{
+			InCheckRov.dequeue(R);
+			if (R->getRovertype() == Emergency)
+			{
+				AvailRovE.enqueue(R);
+			}
+			else {
+				AvailRovP.enqueue(R);
+			}
+		}
 		Day++;		
-		// Save Output File
 	}
 
 	void Load() {

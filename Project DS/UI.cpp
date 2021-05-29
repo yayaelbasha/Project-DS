@@ -220,7 +220,7 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 		{
 			cout << ", ";
 		}
-		cout << M->getID();
+		cout << M->getID() << "/" << M->getRover()->getId();
 		i++;
 	}
 	cout << "}";
@@ -253,7 +253,7 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 	for (int i = 0; i < sizeAvailP; i++)
 	{
 		if (AvailRovP.dequeue(R)) {
-			if (i > 0 && i != sizeAvailE)
+			if (i > 0 && i != sizeAvailP)
 			{
 				cout << ", ";
 			}
