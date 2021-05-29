@@ -77,12 +77,10 @@ The constructor of the Queue class.
 */
 
 template <typename T>
-LinkedQueue<T>::LinkedQueue()
+LinkedQueue<T>::LinkedQueue() : Count(0)
 {
 	backPtr=nullptr;
 	frontPtr=nullptr;
-	Count = 0;
-
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -228,10 +226,22 @@ return size
 template <typename T>
 int LinkedQueue<T>::size()
 {
+	LinkedQueue<T> X;
+	int c = 0;
+	T ITEM;
 	if (isEmpty())
 		return 0;
 
-	return Count;
+	while (dequeue(ITEM))
+	{
+		X.enqueue(ITEM);
+		c++;
+	}
+	while (X.dequeue(ITEM))
+		enqueue(ITEM);
+
+	return c;
+
 }
 
 #endif

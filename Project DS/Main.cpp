@@ -7,9 +7,15 @@ using namespace std;
 
 int main()
 {
+	//Create an object of station
 	station marsStation;
-	
-	marsStation.excute();
-	
+
+	//Read
+	marsStation.GetUserAction();
+
+	//Exexute
+	//marsStation.Execute();
+
+
 	return 0;
 }

@@ -1,5 +1,5 @@
 #include "UI.h"
-#include<windows.h>
+#include <windows.h>
 #include <iostream>
 #include <fstream>
 
@@ -24,6 +24,7 @@ UIclass::UIclass() {}
 
 int UIclass::start() {
 	cout << "Mars Exploration" << endl << endl;
+	Sleep(300);
 	cout << "1 - Interactive Mode" << endl;
 	cout << "2 - Step-By-Step Mode" << endl;
 	cout << "3 - Silent Mode" << endl;
@@ -34,7 +35,7 @@ int UIclass::start() {
 
 	cout << endl;
 
-	/*switch (mode){
+	switch (mode){
 	case 1: 
 		cout << "Interactive Mode" << endl; 
 		break;
@@ -44,17 +45,24 @@ int UIclass::start() {
 		break;
 	case 3: 
 		cout << "Silent Mode" << endl; 
-		cout << "Simulation Starts..." << endl;
+		Sleep(500);
+		cout << "Simulation Starts";
+		for (int i = 0; i < 3; i++)
+		{
+			Sleep(300);
+			cout << ".";
+		}
+		cout << endl; 
 		cout << "Simulation ends, Output file created" << endl;
 		break;
 	default: 
 		break;
-	}*/
+	}
 
 	return mode;
 }
 
-void UIclass::InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRovE, int& numCheckup, int& checkupDurP, int& checkupDurE, int& eventsNum, LinkedQueue<Formulation*>& Events)
+void UIclass::InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRovE, int& numCheckup, int& checkupDurP, int& checkupDurE, LinkedQueue<Formulation*>& Events)
 {
 	char missionType;
 	int ED = 0;
@@ -62,6 +70,7 @@ void UIclass::InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRo
 	int TLOC = 0;
 	int MDUR = 0;
 	int SIG = 0;
+	int eventsNum;
 
 
 	ifstream inputFile("input.txt", ios::in);
@@ -131,27 +140,28 @@ void UIclass::OutputFile(LinkedQueue<Mission*> CompletedMissions, int RovP, int 
 
 	outputFile << "..................................." << endl << "..................................." << endl;
 
-	outputFile << "Missions: " << MissionP+ MissionE << " [P: " << MissionP << ", E: " << MissionE << "]" << endl;
+	outputFile << "Missions: " << MissionP + MissionE << " [P: " << MissionP << ", E: " << MissionE << "]" << endl;
 	outputFile << "Rovers: " << RovP+RovE << " [P: " << RovP << ", E: " << RovE << "]" << endl;
 	outputFile << "Avg Wait = " << AvgWait << ", Avg Exec = " << AvgExec << endl;
 }
 
-void OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPriQueue<Mission*> WaitMissionsE, LinkedPriQueue<Mission*> InExMissions, LinkedQueue<Rover*> AvailRovP, LinkedQueue<Rover*> AvailRovE, LinkedQueue<Rover*> InCheckRov, LinkedQueue<Mission*> CompletedMissions) {
+void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPriQueue<Mission*> WaitMissionsE, LinkedPriQueue<Mission*> InExMissions, LinkedQueue<Rover*> AvailRovP, LinkedQueue<Rover*> AvailRovE, LinkedQueue<Rover*> InCheckRov, LinkedQueue<Mission*> CompletedMissions) {
 
 	Mission* M;
 	Rover* R;
 
+	cout << endl;
 	cout << "Current Day:" << Day << endl;
 	
 	int sizeWaitE = WaitMissionsE.size();
 	int sizeWaitP = WaitMissionsP.size();
-	cout << sizeWaitE + sizeWaitP << "Waiting Missions: ";
+	cout << sizeWaitE + sizeWaitP << " Waiting Missions: ";
 
 	cout << "[";
 	for (int i = 0; i < sizeWaitE; i++)
 	{
 		WaitMissionsE.dequeue(M);
-		if (i > 0 && i == sizeWaitE)
+		if (i > 0 && i !=sizeWaitE)
 		{
 			cout << ", ";
 		}
@@ -166,7 +176,7 @@ void OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPriQueue<Mi
 	for (int i = 0; i < sizeWaitP; i++)
 	{
 		WaitMissionsP.dequeue(M);
-		if (i > 0 && i == sizeWaitP)
+		if (i > 0 && i !=sizeWaitP)
 		{
 			cout << ", ";
 		}
@@ -181,7 +191,7 @@ void OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPriQueue<Mi
 
 	cout << "------------------------------------------------------" << endl;
 	int InExSize = InExMissions.size();
-	cout << InExSize <<"In-Execution Missions/Rovers: ";
+	cout << InExSize <<" In-Execution Missions/Rovers: ";
 
 	cout << "[";
 	for (int i = 0; i < InExSize; i++)
@@ -189,7 +199,7 @@ void OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPriQueue<Mi
 		InExMissions.dequeue(M);
 		if (M->getType() == Emergency)
 		{
-			if (i > 0 && i == InExSize)
+			if (i > 0 && i !=InExSize)
 			{
 				cout << ", ";
 			}
@@ -219,16 +229,86 @@ void OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPriQueue<Mi
 	
 	cout << "------------------------------------------------------" << endl;
 	
-	cout << AvailRovE.size() + AvailRovP.size() <<"Available Rovers: ";
+	int sizeAvailE = AvailRovE.size();
+	int sizeAvailP = AvailRovP.size();
+	cout << sizeAvailE + sizeAvailP << " Available Rovers: ";
+
+	cout << "[";
+	for (int i = 0; i < sizeAvailE; i++)
+	{
+		if (AvailRovE.dequeue(R)) {
+			if (i > 0 && i != sizeAvailE)
+			{
+				cout << ", ";
+			}
+			if (R->getRovertype() == Emergency)
+			{
+				cout << R->getId();
+			}
+		}
+	}
+	cout << "] ";
+
+	cout << "{";
+	for (int i = 0; i < sizeAvailP; i++)
+	{
+		if (AvailRovP.dequeue(R)) {
+			if (i > 0 && i != sizeAvailE)
+			{
+				cout << ", ";
+			}
+			if (R->getRovertype() == Polar)
+			{
+				cout << R->getId();
+			}
+		}
+	}
+	cout << "}";
+	cout << endl;
 	
 	cout << "------------------------------------------------------" << endl;
 	
-	cout << InCheckRov.size() <<"In-Checkup Rovers: ";
+	int sizeCheckRov = InCheckRov.size();
+	cout << sizeCheckRov << " In-Checkup Rovers: ";
+
+	cout << "[";
+	for (int i = 0; i < sizeCheckRov; i++)
+	{
+		InCheckRov.dequeue(R);
+		if (R->getRovertype() == Emergency)
+		{
+			if (i > 0 && i !=sizeCheckRov)
+			{
+				cout << ", ";
+			}
+			cout << R->getId();
+		}
+		else
+		{
+			InCheckRov.enqueue(R);
+		}
+	}
+	cout << "] ";
+
+	cout << "{";
+	i = 0;
+	while (InCheckRov.dequeue(R))
+	{
+		if (i > 0)
+		{
+			cout << ", ";
+		}
+		cout << R->getId();
+		i++;
+	}
+	cout << "}";
+
+	cout << endl;
 	
 	cout << "------------------------------------------------------" << endl;
 
 	int sizeComp = CompletedMissions.size();
-	cout << sizeComp <<"Completed Missions: ";
+	cout << sizeComp <<" Completed Missions: ";
 	
 	cout << "[";
 	for (int i = 0; i < sizeComp; i++)
@@ -236,7 +316,7 @@ void OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPriQueue<Mi
 		CompletedMissions.dequeue(M);
 		if (M->getType() == Emergency)
 		{
-			if (i > 0 && i == sizeComp)
+			if (i > 0 && i !=sizeComp)
 			{
 				cout << ", ";
 			}
@@ -261,6 +341,9 @@ void OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPriQueue<Mi
 		i++;
 	}
 	cout << "}";
+
+	cout << endl;
+	
 }
 
 
