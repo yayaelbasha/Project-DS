@@ -1,12 +1,17 @@
 #ifndef C_UI
 #define C_UI
 
+#include <windows.h>
+#include <iostream>
+#include <fstream>
+
 #include "Formulation.h"
 #include "LinkedQueue.h"
 #include "LinkedPriQueue.h"
 
+using namespace std;
 
-// template <typename T>
+
 class UIclass
 {
 public:

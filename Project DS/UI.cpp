@@ -1,24 +1,5 @@
+// Include Header File
 #include "UI.h"
-#include <windows.h>
-#include <iostream>
-#include <fstream>
-
-#include "Formulation.h"
-#include "LinkedQueue.h"
-#include "LinkedPriQueue.h"
-
-using namespace std;
-
-//void UIclass::read(string Element)
-//{
-//	cin >> Element;
-//}
-//
-//void UIclass::print(string Element)
-//{
-//	cout << Element;
-//}
-
 
 UIclass::UIclass() {}
 
@@ -49,10 +30,11 @@ int UIclass::start() {
 		cout << "Simulation Starts";
 		for (int i = 0; i < 3; i++)
 		{
-			Sleep(300);
+			Sleep(500);
 			cout << ".";
 		}
 		cout << endl; 
+		Sleep(1000);
 		cout << "Simulation ends, Output file created" << endl;
 		break;
 	default: 
