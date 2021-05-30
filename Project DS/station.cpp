@@ -59,7 +59,7 @@ void station::Execute() {
 
 	if (!AvailRovE.isEmpty() || !AvailRovP.isEmpty())
 	{
-		while (WaitMissionsE.dequeue(M))
+		while (WaitMissionsE.peek(M) && (!AvailRovP.isEmpty() || !AvailRovE.isEmpty()) )
 		{
 			if (!AvailRovE.isEmpty())
 			{
@@ -70,6 +70,7 @@ void station::Execute() {
 
 				InExMissions.enqueueAsc(M, M->getCD());
 				InExRov.enqueueAsc(R, M->getCD());
+				WaitMissionsE.dequeue(M);
 			}
 			else if (!AvailRovP.isEmpty())
 			{
@@ -82,6 +83,7 @@ void station::Execute() {
 
 				InExMissions.enqueueAsc(M, M->getCD());
 				InExRov.enqueueAsc(R, M->getCD());
+				WaitMissionsE.dequeue(M);
 			}
 		}
 

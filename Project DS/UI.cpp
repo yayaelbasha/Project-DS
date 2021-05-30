@@ -156,7 +156,7 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 	}
 	cout << "] ";
 	i = 0;
-	cout << "{";
+	cout << "(";
 	while (WaitMissionsP.dequeue(M))
 	{
 		if (i > 0 && i !=sizeWaitP)
@@ -169,7 +169,7 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 		}
 		i++;
 	}
-	cout << "}";
+	cout << ")";
 
 	cout << endl;
 
@@ -204,7 +204,7 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 	}
 	cout << "] ";
 
-	cout << "{";
+	cout << "(";
 	for (int i = 0; i < InExSizeP; i++)
 	{
 		if (InExMissionsP.dequeue(M)) {
@@ -218,7 +218,7 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 			}
 		}
 	}
-	cout << "}";
+	cout << ")";
 	
 
 	cout << endl;
@@ -245,7 +245,7 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 	}
 	cout << "] ";
 
-	cout << "{";
+	cout << "(";
 	for (int i = 0; i < sizeAvailP; i++)
 	{
 		if (AvailRovP.dequeue(R)) {
@@ -259,7 +259,7 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 			}
 		}
 	}
-	cout << "}";
+	cout << ")";
 
 	cout << endl;
 	
@@ -294,7 +294,7 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 	}
 	cout << "] ";
 
-	cout << "{";
+	cout << "(";
 	for (int i = 0; i < InCheckRovPsize; i++)
 	{
 		if (InCheckRovP.dequeue(R)) {
@@ -308,7 +308,7 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 			}
 		}
 	}
-	cout << "}";
+	cout << ")";
 
 	cout << endl;
 	
@@ -336,7 +336,7 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 	}
 	cout << "] ";
 
-	cout << "{";
+	cout << "(";
 	i = 0;
 	while (CompletedMissions.dequeue(M))
 	{
@@ -347,7 +347,7 @@ void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPr
 		cout << M->getID();
 		i++;
 	}
-	cout << "}";
+	cout << ")";
 
 	cout << endl;
 	
