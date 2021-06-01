@@ -103,25 +103,47 @@ void station::Execute() {
 		}
 	}
 
-	while (InExMissions.peek(M) && M->getCD() == Day)
-	{
-		CompletedMissions.enqueue(M);
-		InExMissions.dequeue(M);
-		InExRov.dequeue(R);
+	while (InExMissions.peek(M) && M->getCD() == Day){
 
-		if (R->getMissionsDone() == R->getMissionLimit())
+		srand((unsigned)time(0));
+		int random = 1 + (rand() % 100);
+
+		if (random < 5 && random > 1)
 		{
+			InExMissions.dequeue(M);
+			InExRov.dequeue(R);
+
 			R->setMissionsDone(0);
 			R->setReleaseDay(Day);
 			InCheckRov.enqueue(R);
+
+			if (M->getType() == Emergency) 
+				WaitMissionsE.enqueueDesc(M,M->getSign());
+			else 
+				WaitMissionsP.enqueue(M);
+			M->setFD(Day);
 		}
-		else {
-			if (R->getRovertype() == Emergency)
+		else 
+		{
+			CompletedMissions.enqueue(M);
+			InExMissions.dequeue(M);
+			InExRov.dequeue(R);
+
+			if (R->getMissionsDone() == R->getMissionLimit())
 			{
-				AvailRovE.enqueue(R);
+				R->setMissionsDone(0);
+				R->setReleaseDay(Day);
+				InCheckRov.enqueue(R);
 			}
-			else {
-				AvailRovP.enqueue(R);
+			else
+			{
+				if (R->getRovertype() == Emergency)
+				{
+					AvailRovE.enqueue(R);
+				}
+				else {
+					AvailRovP.enqueue(R);
+				}
 			}
 		}
 	}

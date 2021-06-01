@@ -17,9 +17,14 @@
 // To Use function Sleep(milliseconds);
 #include <windows.h>
 
+// To generate random number
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctime>
 
 class station
 {
+
 private:
 	// the num of the Day since the station start to Exceute Missions and Rovers 
 	int Day;

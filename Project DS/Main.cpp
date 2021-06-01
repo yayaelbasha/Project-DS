@@ -23,7 +23,6 @@ int main()
 
 	//Control station
 	marsStation.Control();
-
 	
 	return 0;
 }
