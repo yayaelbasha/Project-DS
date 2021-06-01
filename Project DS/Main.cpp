@@ -15,7 +15,6 @@
 int main()
 {
 
-
 	//Create an object of station
 	station marsStation;
 
