@@ -1,7 +1,7 @@
 #include "Rover.h"
 #include "Mission.h"
 
-int Rover::NewId = 0;
+int Rover::NewId = 1;
 
 Rover::Rover() : Id(NewId++) {
 	missionsDone = 0; 
@@ -22,6 +22,11 @@ int Rover::getcheckDur() { return checkDur; }
 int Rover::getspeed() { return speed; }
 bool Rover::getIsCheckUp() { return IsCheckUp; }
 Mission* Rover::getMission() { return missionAssign; }
+int Rover::getMissionsDone() { return missionsDone;}
+int Rover::getMissionLimit() { return missionLimit; }
+int Rover::getReleaseDay() { return ReleaseDay; }
+
+
 
 // Set for Data members
 void Rover::setRovertype(TYPE Rovertype) { this->Rovertype = Rovertype; }
@@ -31,5 +36,10 @@ void Rover::SetMission(Mission* missionAssign) {
 	this->missionAssign = missionAssign;
 	missionsDone++;
 }
+void Rover::setMissionsDone(int missionsDone) {this->missionsDone = missionsDone;}
+void Rover::setMissionLimit(int missionLimit) { this->missionLimit = missionLimit; }
+void Rover::setReleaseDay(int Day) { ReleaseDay = Day + checkDur; }
+
+
 
 

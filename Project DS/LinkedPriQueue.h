@@ -14,6 +14,7 @@ class LinkedPriQueue : public PriQueueADT<T>
 public:
 	LinkedPriQueue();
 	bool isEmpty() const;
+	bool enqueue(const T& newEntry);
 	bool enqueueAsc(const T& newEntry, int priority);
 	bool enqueueDesc(const T& newEntry, int priority);
 	bool dequeue(T& frntEntry);
@@ -119,6 +120,31 @@ bool LinkedPriQueue<T>::enqueueDesc(const T& newEntry, int priority)
 	return true;
 } // end enqueue
 
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/*Function:enqueue
+Adds newEntry at the back of this queue.
+
+Input: newEntry .
+Output: True if the operation is successful; otherwise false.
+*/
+
+template <typename T>
+bool LinkedPriQueue<T>::enqueue(const T& newEntry)
+{
+	NodePri<T>* newNodePtr = new NodePri<T>(newEntry);
+	// Insert the new node
+	if (isEmpty())	//special case if this is the first node to insert
+		frontPtr = newNodePtr; // The queue is empty
+	else
+		backPtr->setNext(newNodePtr); // The queue was not empty
+
+	backPtr = newNodePtr; // New node is the last node now
+
+	Count++;
+	return true;
+} // end enqueue
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -177,10 +203,21 @@ return size
 template <typename T>
 int LinkedPriQueue<T>::size()
 {
+	LinkedQueue<T> X;
+	int c = 0;
+	T ITEM;
 	if (isEmpty())
 		return 0;
 
-	return Count;
+	while (dequeue(ITEM))
+	{
+		X.enqueue(ITEM);
+		c++;
+	}
+	while (X.dequeue(ITEM))
+		enqueue(ITEM);
+
+	return c;
 }
 ///////////////////////////////////////////////////////////////////////////////////
 /*

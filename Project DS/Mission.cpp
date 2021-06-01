@@ -50,7 +50,7 @@ void Mission::setED(int ED) { this->ED = ED; }
 
 
 void Mission::calcED() {
-	ED = duration + 2 * ceil((TargetLoc / roverAssign->getspeed()) / 25);
+	ED = duration + 2 * ceil(((float)TargetLoc / roverAssign->getspeed()) / 25);
 }
 
 void Mission::calcCD() {
