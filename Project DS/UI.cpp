@@ -127,6 +127,7 @@ void UIclass::OutputFile(LinkedQueue<Mission*> CompletedMissions, int RovP, int 
 	outputFile << "Avg Wait = " << AvgWait << ", Avg Exec = " << AvgExec << endl;
 }
 
+
 void UIclass::OutputScreen(int Day,LinkedQueue<Mission*> WaitMissionsP, LinkedPriQueue<Mission*> WaitMissionsE, LinkedPriQueue<Mission*> InExMissions, LinkedQueue<Rover*> AvailRovP, LinkedQueue<Rover*> AvailRovE, LinkedQueue<Rover*> InCheckRov, LinkedQueue<Mission*> CompletedMissions) {
 
 	Mission* M;
