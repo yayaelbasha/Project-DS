@@ -20,9 +20,6 @@ void station::Load() {
 	int checkupDurP;
 	int checkupDurE;
 
-	int AutoP;
-	int eventsNum;
-
 	// Load Input File
 	UI.InputFile(numRovP, numRovE, speedRovP, speedRovE, numCheckup, checkupDurP, checkupDurE, Events);
 
