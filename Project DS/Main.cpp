@@ -24,7 +24,6 @@ int main(){
 	//Create an object of station
 	station marsStation;
 
-
 	//Read Input File
 	marsStation.Load();
 
@@ -32,6 +31,8 @@ int main(){
 	//Control station
 	marsStation.Control();	
 
+	//Save Output File
+	marsStation.Save();
 
 	return 0;
 

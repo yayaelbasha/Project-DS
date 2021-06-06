@@ -16,22 +16,22 @@ private:
 public:
 	Formulation();
 
-	void setMissionType(char MT);
-	void setED(int ED);
-	void setID(int ID);
-	void setTLOC(int TLOC);
-	void setMDUR(int MDUR);
+	void setMissionType(char MT) ;
+	void setED(int ED) ;
+	void setID(int ID) ;
+	void setTLOC(int TLOC) ;
+	void setMDUR(int MDUR) ;
 	void setSIG(int SIG);
 
 	TYPE getMissionType();
-	int getED();
-	int getID();
+	int getED() ;
+	int getID() ;
 	int getTLOC();
 	int getMDUR();
-	int getSIG();
+	int getSIG() ;
 
-	Mission* Execute();
-	
+	Mission* Execute(LinkedQueue<Mission*>& WaitMissionsP, LinkedPriQueue<Mission*>& WaitMissionsE);
+
 	~Formulation();
 };
 

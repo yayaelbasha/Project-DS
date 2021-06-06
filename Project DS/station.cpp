@@ -37,7 +37,9 @@ void station::Load() {
 }
 
 // Save output file and Show information on Screen
-void Save();
+void station::Save() {
+	UI.OutputFile(CompletedMissions, AvailRovP.size(), AvailRovE.size());
+}
 
 // Execute the mission and rovers 
 void station::Execute() {
@@ -48,10 +50,7 @@ void station::Execute() {
 
 	while (Events.peek(F) && F->getED() == Day)
 	{
-		if (F->getMissionType() == Polar)
-			WaitMissionsP.enqueue(F->Execute());
-		else if (F->getMissionType() == Emergency)
-			WaitMissionsE.enqueueDesc(F->Execute(), F->Execute()->getSign());
+		F->Execute(WaitMissionsP, WaitMissionsE);
 
 		Events.dequeue(F);
 	}
@@ -203,9 +202,6 @@ void station::Control() {
 	default:
 		break;
 	}
-
-	UI.OutputFile(CompletedMissions, AvailRovP.size(), AvailRovE.size());
-
 }
 
 

@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "event.h"
 #include "Formulation.h"
 #include "LinkedQueue.h"
 #include "LinkedPriQueue.h"

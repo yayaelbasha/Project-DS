@@ -78,7 +78,7 @@ void UIclass::InputFile(int& numRovP, int& numRovE, int *& speedRovP, int *& spe
 			char eventType;
 			if (inputFile >> eventType, eventType == 'F')
 			{
-				Formulation * F = new Formulation;
+				Formulation* F = new Formulation ;
 				inputFile >> missionType;
 
 				inputFile >> ED >> Id >> TLOC >> MDUR >> SIG;

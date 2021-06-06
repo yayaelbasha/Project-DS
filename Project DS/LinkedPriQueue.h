@@ -203,7 +203,7 @@ return size
 template <typename T>
 int LinkedPriQueue<T>::size()
 {
-	LinkedQueue<T> X;
+	LinkedPriQueue<T> X;
 	int c = 0;
 	T ITEM;
 	if (isEmpty())
