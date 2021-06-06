@@ -2,9 +2,6 @@
 
 Formulation::Formulation() {
 	
-
-
-
 }
 
 void Formulation::setMissionType(char MT) {
@@ -17,7 +14,6 @@ void Formulation::setMissionType(char MT) {
 	{
 		missionType = Polar;
 	}
-
 }
 
 void Formulation::setED(int ED) {
@@ -40,7 +36,6 @@ void Formulation::setSIG(int SIG) {
 	this->SIG = SIG;
 }
 
-
 TYPE Formulation::getMissionType() {
 	return missionType;
 }
@@ -61,7 +56,21 @@ int Formulation::getSIG() {
 	return SIG;
 }
 
-Mission* Formulation::Execute() {
-	Mission* mission = new Mission(ID, missionType,ED,TLOC,MDUR,SIG);
+Mission* Formulation::Execute(LinkedQueue<Mission*>& WaitMissionsP, LinkedPriQueue<Mission*>& WaitMissionsE) {
+
+	Mission* mission = new Mission(ID, missionType, ED, TLOC, MDUR, SIG);
+	mission->setSign(SIG);
+
+	if (this->getMissionType() == Polar)
+		WaitMissionsP.enqueue(mission);
+	else if (this->getMissionType() == Emergency)
+		WaitMissionsE.enqueueDesc(mission, mission->getSign());
+
 	return mission;
 }
+
+Formulation::~Formulation() {
+
+}
+
+

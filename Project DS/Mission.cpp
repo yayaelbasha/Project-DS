@@ -1,6 +1,8 @@
 #include "Mission.h"
 #include "Rover.h"
 
+
+
 Mission::Mission() {
 
 }
@@ -42,7 +44,12 @@ void Mission::setType(TYPE Rovertype) { this->Type = Type; }
 void Mission::setFD(int FD) { this->FD = FD; }
 void Mission::setTargetLoc(int TargetLoc) { this->TargetLoc = TargetLoc; }
 void Mission::setduration(int duration) { this->duration = duration; }
-void Mission::setSign(int Sign) { this->Sign = Sign; }
+void Mission::setSign(int Signif) {
+	if (Type == Emergency)
+		Sign = 10000 * (Signif * Signif) / (TargetLoc * duration * FD) ;
+	else
+		Sign = Signif;
+}
 void Mission::setRover(Rover* roverAssign) { this->roverAssign = roverAssign; }
 void Mission::setCD(int CD) { this->CD = CD; }
 void Mission::setWD(int WD) { this->WD = WD; }
@@ -50,7 +57,7 @@ void Mission::setED(int ED) { this->ED = ED; }
 
 
 void Mission::calcED() {
-	ED = duration + 2 * ceil(((float)TargetLoc / roverAssign->getspeed()) / 25);
+	ED = duration + ceil(((float)2 * TargetLoc / roverAssign->getspeed()) / 25);
 }
 
 void Mission::calcCD() {

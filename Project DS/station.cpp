@@ -12,8 +12,8 @@ void station::Load() {
 	int numRovP;
 	int numRovE;
 
-	int speedRovP;
-	int speedRovE;
+	int* speedRovE = new int[100];
+	int* speedRovP = new int[100];
 
 	int numCheckup;
 
@@ -25,17 +25,21 @@ void station::Load() {
 
 	for (int i = 0; i < numRovE; i++)
 	{
-		Rover* R = new Rover(Emergency, checkupDurE, speedRovE, numCheckup);
-		AvailRovE.enqueue(R);
+		Rover* R = new Rover(Emergency, checkupDurE, speedRovE[i], numCheckup);
+		AvailRovE.enqueueDesc(R, R->getspeed());
 	}
 
 	for (int i = 0; i < numRovP; i++)
 	{
-		Rover* R = new Rover(Polar, checkupDurP, speedRovP, numCheckup);
-		AvailRovP.enqueue(R);
+		Rover* R = new Rover(Polar, checkupDurP, speedRovP[i], numCheckup);
+		AvailRovP.enqueueDesc(R, R->getspeed());
 	}
 }
 
+// Save output file and Show information on Screen
+void station::Save() {
+	UI.OutputFile(CompletedMissions, AvailRovP.size(), AvailRovE.size());
+}
 
 // Execute the mission and rovers 
 void station::Execute() {
@@ -46,10 +50,7 @@ void station::Execute() {
 
 	while (Events.peek(F) && F->getED() == Day)
 	{
-		if (F->getMissionType() == Polar)
-			WaitMissionsP.enqueue(F->Execute());
-		else if (F->getMissionType() == Emergency)
-			WaitMissionsE.enqueueDesc(F->Execute(), F->Execute()->getSign());
+		F->Execute(WaitMissionsP, WaitMissionsE);
 
 		Events.dequeue(F);
 	}
@@ -104,7 +105,7 @@ void station::Execute() {
 
 		srand((unsigned)time(0));
 		int random = 1 + (rand() % 100);
-		if (random < 5 && random > 1)
+		if (random < 15 && random > 1)
 		{
 			InExMissions.dequeue(M);
 			InExRov.dequeue(R);
@@ -201,9 +202,6 @@ void station::Control() {
 	default:
 		break;
 	}
-
-	UI.OutputFile(CompletedMissions, AvailRovP.size(), AvailRovE.size());
-
 }
 
 

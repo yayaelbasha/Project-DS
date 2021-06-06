@@ -44,7 +44,7 @@ int UIclass::start() {
 	return mode;
 }
 
-void UIclass::InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRovE, int& numCheckup, int& checkupDurP, int& checkupDurE, LinkedQueue<Formulation*>& Events)
+void UIclass::InputFile(int& numRovP, int& numRovE, int *& speedRovP, int *& speedRovE, int& numCheckup, int& checkupDurP, int& checkupDurE, LinkedQueue<Formulation*>& Events)
 {
 	char missionType;
 	int ED = 0;
@@ -60,7 +60,16 @@ void UIclass::InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRo
 	if (inputFile.is_open())
 	{
 		inputFile >> numRovE >> numRovP;
-		inputFile >> speedRovE >> speedRovP;
+		for (int i = 0; i < numRovE; i++)
+		{
+			inputFile >> speedRovE[i];
+		}
+		
+		for (int i = 0; i < numRovP; i++)
+		{
+			inputFile >> speedRovP[i];
+		}
+
 		inputFile >> numCheckup >> checkupDurE >> checkupDurP;
 		inputFile >> eventsNum;
 
@@ -69,7 +78,7 @@ void UIclass::InputFile(int& numRovP, int& numRovE, int& speedRovP, int& speedRo
 			char eventType;
 			if (inputFile >> eventType, eventType == 'F')
 			{
-				Formulation* F = new Formulation;
+				Formulation* F = new Formulation ;
 				inputFile >> missionType;
 
 				inputFile >> ED >> Id >> TLOC >> MDUR >> SIG;
@@ -127,7 +136,7 @@ void UIclass::OutputFile(LinkedQueue<Mission*> CompletedMissions, int RovP, int 
 	outputFile << "Avg Wait = " << AvgWait << ", Avg Exec = " << AvgExec << endl;
 }
  
- void UIclass::OutputScreen(int Day, LinkedQueue<Mission*> WaitMissionsP, LinkedPriQueue<Mission*> WaitMissionsE, LinkedPriQueue<Mission*> InExMissions, LinkedQueue<Rover*> AvailRovP, LinkedQueue<Rover*> AvailRovE, LinkedQueue<Rover*> InCheckRov, LinkedQueue<Mission*> CompletedMissions) {
+ void UIclass::OutputScreen(int Day, LinkedQueue<Mission*> WaitMissionsP, LinkedPriQueue<Mission*> WaitMissionsE, LinkedPriQueue<Mission*> InExMissions, LinkedPriQueue<Rover*> AvailRovP, LinkedPriQueue<Rover*> AvailRovE, LinkedQueue<Rover*> InCheckRov, LinkedQueue<Mission*> CompletedMissions) {
 
 	Mission* M;
 	Rover* R;
