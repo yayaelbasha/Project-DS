@@ -1,20 +1,13 @@
 #ifndef EVENT_H
 #define EVENT_H
 
-class station;
+#include "Mission.h"
 
 class event
 {
-protected:
-	station* pStation;	
-
 public:
 	event();
-	event(station* pStation) {
-		this->pStation = pStation; 
-	}
-
-	virtual void Execute() = 0;
+	virtual Mission* Execute() = 0;
 };
 
 #endif

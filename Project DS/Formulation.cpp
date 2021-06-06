@@ -2,9 +2,6 @@
 
 Formulation::Formulation() {
 	
-
-
-
 }
 
 void Formulation::setMissionType(char MT) {

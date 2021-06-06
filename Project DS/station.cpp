@@ -12,8 +12,8 @@ void station::Load() {
 	int numRovP;
 	int numRovE;
 
-	int speedRovP;
-	int speedRovE;
+	int* speedRovE = new int[100];
+	int* speedRovP = new int[100];
 
 	int numCheckup;
 
@@ -25,17 +25,19 @@ void station::Load() {
 
 	for (int i = 0; i < numRovE; i++)
 	{
-		Rover* R = new Rover(Emergency, checkupDurE, speedRovE, numCheckup);
-		AvailRovE.enqueue(R);
+		Rover* R = new Rover(Emergency, checkupDurE, speedRovE[i], numCheckup);
+		AvailRovE.enqueueDesc(R, R->getspeed());
 	}
 
 	for (int i = 0; i < numRovP; i++)
 	{
-		Rover* R = new Rover(Polar, checkupDurP, speedRovP, numCheckup);
-		AvailRovP.enqueue(R);
+		Rover* R = new Rover(Polar, checkupDurP, speedRovP[i], numCheckup);
+		AvailRovP.enqueueDesc(R, R->getspeed());
 	}
 }
 
+// Save output file and Show information on Screen
+void Save();
 
 // Execute the mission and rovers 
 void station::Execute() {

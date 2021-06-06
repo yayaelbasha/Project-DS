@@ -35,8 +35,8 @@ private:
 
 	LinkedPriQueue<Mission*> InExMissions;
 
-	LinkedQueue<Rover*> AvailRovP;
-	LinkedQueue<Rover*> AvailRovE;
+	LinkedPriQueue<Rover*> AvailRovP;
+	LinkedPriQueue<Rover*> AvailRovE;
 
 	LinkedQueue<Rover*> InCheckRov;
 	LinkedQueue<Mission*> CompletedMissions;
@@ -54,6 +54,9 @@ public:
 
 	// Load input file and extract information from it
 	void Load();
+
+	// Save output file and Show information on Screen
+	void Save();
 
 	// Execute the mission and rovers 
 	void Execute();

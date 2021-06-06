@@ -1,6 +1,7 @@
 #include "Mission.h"
 #include "Rover.h"
 
+
 Mission::Mission() {
 
 }
@@ -11,7 +12,8 @@ Mission::Mission(int id, TYPE Type, int FD, int TargetLoc, int duration, int Sig
 	this->FD = FD;
 	this->TargetLoc = TargetLoc;
 	this->duration = duration;
-	this->Sign = Sign;
+	if (Type == Emergency) this->Sign = ((Sign^2) / (TargetLoc * duration * FD)) * 100000 ;
+	else this->Sign = Sign;
 	this->roverAssign = roverAssign;
 	WD = 0;
 }
