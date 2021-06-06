@@ -105,7 +105,7 @@ void station::Execute() {
 
 		srand((unsigned)time(0));
 		int random = 1 + (rand() % 100);
-		if (random < 5 && random > 1)
+		if (random < 15 && random > 1)
 		{
 			InExMissions.dequeue(M);
 			InExRov.dequeue(R);

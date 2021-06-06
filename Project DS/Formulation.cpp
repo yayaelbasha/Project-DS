@@ -59,6 +59,7 @@ int Formulation::getSIG() {
 Mission* Formulation::Execute(LinkedQueue<Mission*>& WaitMissionsP, LinkedPriQueue<Mission*>& WaitMissionsE) {
 
 	Mission* mission = new Mission(ID, missionType, ED, TLOC, MDUR, SIG);
+	mission->setSign(SIG);
 
 	if (this->getMissionType() == Polar)
 		WaitMissionsP.enqueue(mission);
